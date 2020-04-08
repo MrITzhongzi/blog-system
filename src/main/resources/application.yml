@@ -1,2 +1,18 @@
 server:
   port: 8088
+
+
+
+# 数据库配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blog_system
+    username: root
+    password: lhw19940331
+
+
+# JWT 配置 密钥 过期时间 发行者
+  jwt.secret=itzhongzi
+  jwt.expire=600000000
+  jwt.subject=lihongwei

@@ -11,8 +11,3 @@ spring:
     username: root
     password: lhw19940331
 
-
-# JWT 配置 密钥 过期时间 发行者
-  jwt.secret=itzhongzi
-  jwt.expire=600000000
-  jwt.subject=lihongwei

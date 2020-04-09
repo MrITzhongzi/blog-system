@@ -21,13 +21,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int insert(LhwUser user) {
-        int num = userMapper.insert(user);
-        return num;
+        try {
+            int num = userMapper.insert(user);
+            return num;
+        } catch (Exception e) { }
+        // 异常
+        return 0;
     }
 
     @Override
     public List<LhwUser> queryAllUser() {
 
         return userMapper.queryAllUser();
+    }
+
+    @Override
+    public LhwUser queryUserByPhone(String phone) {
+
+        return userMapper.queryUserByPhone(phone);
     }
 }

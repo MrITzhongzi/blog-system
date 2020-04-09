@@ -16,9 +16,14 @@ public class SecretUtils {
      * @param oldPwd
      * @return
      */
-    public static String generatePwd(String oldPwd) throws NoSuchAlgorithmException {
-        MessageDigest sha = MessageDigest.getInstance("SHA");
-        String str = new BigInteger(sha.digest()).toString(32); // 生成32位字符串秘文
-        return str;
+    public static String generatePwd(String oldPwd) {
+        try {
+            MessageDigest sha = MessageDigest.getInstance("SHA");
+            // 生成32位字符串秘文
+            return new BigInteger(sha.digest()).toString(32);
+        } catch (Exception e) {
+
+        }
+        return null;
     }
 }

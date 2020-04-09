@@ -19,31 +19,35 @@ public class JWTUtils {
      * 密钥
      */
     @Value("${jwt.secret}")
-    private static String secret;
+    private static String secret = "itzhongzi";
 
     /**
      * 过期时间
      */
     @Value("${jwt.expire}")
-    private static long expire;
-
-    @Value("${jwt.subject}")
-    private static String subject;
+    private static long expire = 1000 * 60 * 60 * 24 * 7;
 
     /**
-     *  生成JWTtoken
+     * 发行者
+     */
+    @Value("${jwt.subject}")
+    private static String subject = "lihongwei";
+
+    /**
+     *  使用 ID 和 pwssword 生成JWTtoken
      * @param user
      * @return
      */
     public static String generateToken(LhwUser user){
-        if(user == null || user.getUserId() == null || user.getUserNickname() ==null || user.getUserTelephoneNumber() == null || user.getUserPassword() == null ) {
+        if(user == null || user.getUserId() == null
+                || user.getUserNickname().isEmpty()
+                || user.getUserTelephoneNumber().isEmpty()
+                || user.getUserPassword().isEmpty() ) {
             return null;
         }
 
         String jwtToken = Jwts.builder().setSubject(subject)
                 .claim("id", user.getUserId())
-                .claim("nickname", user.getUserNickname())
-                .claim("phone", user.getUserTelephoneNumber())
                 .claim("password", user.getUserPassword())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expire))

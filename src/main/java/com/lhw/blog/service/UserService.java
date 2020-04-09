@@ -15,4 +15,6 @@ public interface UserService {
     int insert(LhwUser user);
 
     List<LhwUser> queryAllUser();
+
+    LhwUser queryUserByPhone(String phone);
 }

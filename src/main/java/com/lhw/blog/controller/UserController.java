@@ -74,14 +74,13 @@ public class UserController {
         //获取 ip
         String requestIp = IpUtil.getIpAddr(request);
 
-        // 使用jwt成成密钥
         LhwUser user = new LhwUser();
         user.setUserPassword(newPwd);
         user.setUserTelephoneNumber(phone);
         user.setUserNickname(nickname);
         user.setUserName(username);
         user.setUserIp(requestIp);
-        // 返回主键id  null为异常
+        // 返回主键id  0 为异常
         Integer row = userService.insert(user);
         if(row != 0) {
             Map<String,String> map = new HashMap<>();

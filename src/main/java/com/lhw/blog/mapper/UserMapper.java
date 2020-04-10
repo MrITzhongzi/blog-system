@@ -1,9 +1,7 @@
 package com.lhw.blog.mapper;
 
 import com.lhw.blog.domain.LhwUser;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -32,7 +30,7 @@ public interface UserMapper {
     List<LhwUser> queryAllUser();
 
 
-    @Select("select * from lhw_user where user_telephone_number = #{phone} limit 1")
+    @Select("SELECT * FROM lhw_user WHERE user_telephone_number = #{phone};")
     LhwUser queryUserByPhone(String phone);
 
 }

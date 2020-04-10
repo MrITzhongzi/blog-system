@@ -117,4 +117,11 @@ public class UserController {
 
         return JsonBuilder.buildError("用户名或密码不正确");
     }
+
+    @RequestMapping(path = "test", method = RequestMethod.GET)
+    public JsonBuilder test(){
+        List<LhwUser> userList = userService.queryAllUser();
+        return JsonBuilder.buildSuccess(userList);
+    }
+
 }

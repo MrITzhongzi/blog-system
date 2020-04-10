@@ -18,19 +18,16 @@ public class JWTUtils {
     /**
      * 密钥
      */
-    @Value("${jwt.secret}")
     private static String secret = "itzhongzi";
 
     /**
      * 过期时间
      */
-    @Value("${jwt.expire}")
     private static long expire = 1000 * 60 * 60 * 24 * 7;
 
     /**
      * 发行者
      */
-    @Value("${jwt.subject}")
     private static String subject = "lihongwei";
 
     /**

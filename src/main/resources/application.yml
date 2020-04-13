@@ -1,6 +1,7 @@
 server:
   port: 8088
 
+
 # 数据库配置
 spring:
   datasource:
@@ -24,5 +25,15 @@ logging:
       lhw:
         blog:
           mapper: debug
+
+# 七牛云配置 accessKey  secretKey
+
+qiniu:
+  ACCESSKEY: N0Jk2mJqhLzI_6qkWuwnwxtvqDoKL7cziO_Z0ugf
+  SECRETKEY: yn8TiloDHLgSEYF8hgy4PbkYEeQcgncWZthD_qGJ
+  BUCKETNAME: lhw-blog-system
+
+
+
 
 

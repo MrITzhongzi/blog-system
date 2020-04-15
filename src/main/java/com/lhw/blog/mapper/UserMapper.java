@@ -18,7 +18,7 @@ public interface UserMapper {
      * @param user
      * @return
      */
-    @Insert("insert into lhw_user(user_ip, user_name, user_password, user_nickname, user_telephone_number) values (#{userIp}, #{userName},#{userPassword},#{userNickname}, #{userTelephoneNumber});")
+    @Insert("insert into lhw_user(user_ip, user_name, user_password, user_nickname, user_telephone_number) values (#{userIp}, #{userName},#{userPassword},#{userNickname}, #{userTelephoneNumber})")
     @Options(useGeneratedKeys = true, keyProperty = "userId", keyColumn = "user_id")
     int insert(LhwUser user);
 
@@ -30,7 +30,7 @@ public interface UserMapper {
     List<LhwUser> queryAllUser();
 
 
-    @Select("SELECT * FROM lhw_user WHERE user_telephone_number = #{phone};")
+    @Select("SELECT * FROM lhw_user WHERE user_telephone_number = #{phone}")
     LhwUser queryUserByPhone(String phone);
 
 }

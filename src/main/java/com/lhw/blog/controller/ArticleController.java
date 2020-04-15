@@ -1,15 +1,19 @@
 package com.lhw.blog.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.autoconfigure.PageHelperAutoConfiguration;
 import com.lhw.blog.domain.LhwArticles;
 import com.lhw.blog.service.ArticleService;
 import com.lhw.blog.tool.JsonBuilder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.lhw.blog.tool.PageUtils;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @description:
@@ -22,7 +26,7 @@ public class ArticleController {
 
     @Resource
     private ArticleService articleService;
-
+    private PageUtils<LhwArticles> pageUtils = new PageUtils<>();
     /**
      * 发表文章 api
      * @return
@@ -50,9 +54,35 @@ public class ArticleController {
         return JsonBuilder.buildError("文章插入失败");
     }
 
+    /**
+     * 查询所有文章
+     * @param page
+     * @param size
+     * @return
+     */
     @RequestMapping(path = "/all", method = RequestMethod.GET)
-    public JsonBuilder getAllArticle(){
+    public JsonBuilder getAllArticle(@RequestParam(value = "page", defaultValue = "1") int page,
+                                     @RequestParam(value = "size", defaultValue = "10") int size){
+        PageHelper.startPage(page, size);
+        List<LhwArticles> allArticle = articleService.getAllArticle();
+        Map<String, Object> map = pageUtils.dealPageInfo(allArticle, page);
+        return JsonBuilder.buildSuccess(map);
+    }
 
-        return null;
+    /**
+     * 获取用户文章
+     * @param page
+     * @param size
+     * @return
+     */
+    @GetMapping(path = "/user_article")
+    public JsonBuilder getUserArticle(@RequestParam(value = "page", defaultValue = "1") int page,
+                                      @RequestParam(value = "size", defaultValue = "10") int size,
+                                      HttpServletRequest request){
+        int userId = (int)request.getAttribute("user_id");
+        PageHelper.startPage(page, size);
+        List<LhwArticles> userListArticle = articleService.getUserArticle(userId);
+        Map<String, Object> map = pageUtils.dealPageInfo(userListArticle, page);
+        return JsonBuilder.buildSuccess(map);
     }
 }

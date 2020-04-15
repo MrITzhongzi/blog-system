@@ -29,7 +29,8 @@ public class IntercepterConfig extends WebMvcConfigurationSupport {
         List<String> excludePath = new ArrayList<>();
         excludePath.add("/api/user/register");
         excludePath.add("/api/user/login");
-
+        //查询所有文章
+        excludePath.add("/api/article/all");
 
         List<String> includePath = new ArrayList<>();
         includePath.add("/api/**");

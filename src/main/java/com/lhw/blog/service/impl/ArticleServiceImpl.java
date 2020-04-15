@@ -6,6 +6,7 @@ import com.lhw.blog.service.ArticleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @description:
@@ -21,5 +22,15 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public int insertArticle(LhwArticles article) {
         return articleMapper.insertArticle(article);
+    }
+
+    @Override
+    public List<LhwArticles> getAllArticle() {
+        return articleMapper.getAllArticle();
+    }
+
+    @Override
+    public List<LhwArticles> getUserArticle(int userId) {
+        return articleMapper.getUserArticle(userId);
     }
 }

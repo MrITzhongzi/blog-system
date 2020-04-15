@@ -2,6 +2,8 @@ package com.lhw.blog.service;
 
 import com.lhw.blog.domain.LhwArticles;
 
+import java.util.List;
+
 /**
  * @description:
  * @author: lihongwei
@@ -10,4 +12,8 @@ import com.lhw.blog.domain.LhwArticles;
 public interface ArticleService {
 
     int insertArticle(LhwArticles article);
+
+    List<LhwArticles> getAllArticle();
+
+    List<LhwArticles> getUserArticle(int userId);
 }

@@ -17,6 +17,16 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
+# 分页配置
+pagehelper:
+  offset-as-page-num: true
+  row-bounds-with-count: true
+  page-size-zero: true
+  reasonable: false
+  helper-dialect: mysql
+  support-methods-arguments: true
+  params: count=countSql
+
 # 日志配置
 # logging.level.com.lhw.blog.mapper: debug 配置显示执行的sql
 logging:

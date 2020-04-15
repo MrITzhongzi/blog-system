@@ -29,8 +29,7 @@ public class IntercepterConfig extends WebMvcConfigurationSupport {
         List<String> excludePath = new ArrayList<>();
         excludePath.add("/api/user/register");
         excludePath.add("/api/user/login");
-        //一下是为了测试临时改动
-        excludePath.add("/api/img/**");
+
 
         List<String> includePath = new ArrayList<>();
         includePath.add("/api/**");

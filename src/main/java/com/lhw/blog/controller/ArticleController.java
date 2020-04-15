@@ -49,4 +49,10 @@ public class ArticleController {
 
         return JsonBuilder.buildError("文章插入失败");
     }
+
+    @RequestMapping(path = "/all", method = RequestMethod.GET)
+    public JsonBuilder getAllArticle(){
+
+        return null;
+    }
 }

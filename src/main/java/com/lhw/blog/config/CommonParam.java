@@ -8,4 +8,6 @@ package com.lhw.blog.config;
 public class CommonParam {
 
     public static String NULLSTRING = " ";
+    public static String[] IMAGETYPE = new String[]{"png", "jpg", "jpeg"};
+
 }

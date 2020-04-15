@@ -14,4 +14,7 @@ public interface ArticleMapper {
     @Insert("INSERT INTO lhw_articles (user_id, article_title, article_content) VALUES (#{userId}, #{articleTitle}, #{articleContent});")
     @Options(useGeneratedKeys = true, keyProperty = "articleId", keyColumn = "article_id")
     int insertArticle(LhwArticles article);
+
+
+
 }

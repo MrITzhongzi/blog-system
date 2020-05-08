@@ -7,13 +7,13 @@ import com.lhw.blog.tool.IpUtil;
 import com.lhw.blog.tool.JWTUtils;
 import com.lhw.blog.tool.JsonBuilder;
 import com.lhw.blog.tool.SecretUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,21 +31,19 @@ public class UserController {
     private UserService userService;
 
     /**
-     * 用户注册 api
-     * @param username
-     * @param password
-     * @param phone
-     * @param nickname
+     * 注册逻辑 map 中有 username password phone nickname
+     * @param mapParams
      * @param request
      * @return
      */
     @RequestMapping(path = "register", method = RequestMethod.POST)
-    public JsonBuilder userRegister(@RequestParam(value = "username") String username,
-                                    @RequestParam(value = "password") String password,
-                                    @RequestParam(value = "phone") String phone,
-                                    @RequestParam(value = "nickname") String nickname,
+    public JsonBuilder userRegister(@RequestBody Map<String, String> mapParams,
                                     HttpServletRequest request){
 
+        String username = mapParams.get("username");
+        String password = mapParams.get("password");
+        String phone = mapParams.get("phone");
+        String nickname = mapParams.get("nickname");
         // 从数据库查询有没有此用户，有的话返回错误，没有继续
 
         LhwUser tempUser = userService.queryUserByPhone(phone);
@@ -94,9 +92,10 @@ public class UserController {
 
 
     @RequestMapping(path = "login", method = RequestMethod.POST)
-    public JsonBuilder userRegister(@RequestParam(value="phone") String phone,
-                                    @RequestParam(value = "password") String password){
+    public JsonBuilder userRegister(@RequestBody Map<String, String> mapParams){
 
+        String phone = mapParams.get("phone");
+        String password = mapParams.get("password");
 
         LhwUser user = userService.queryUserByPhone(phone);
         if(user == null) {
@@ -118,8 +117,99 @@ public class UserController {
         return JsonBuilder.buildError("用户名或密码不正确");
     }
 
-    @RequestMapping(path = "test", method = RequestMethod.GET)
-    public JsonBuilder test(){
+    @RequestMapping(path = "get_user_info", method = RequestMethod.GET)
+    public JsonBuilder getUserInfo(HttpServletRequest request){
+        String userId = request.getAttribute("user_id").toString();
+        LhwUser lhwUser = userService.queryUserById(userId);
+        if(lhwUser != null) {
+            return JsonBuilder.buildSuccess(lhwUser);
+        }
+
+        return JsonBuilder.buildError("查询用户失败，请稍后再试。");
+    }
+
+    /**
+     * 需要参数 userEmail 邮箱 userProfilePhoto 头像
+     *        userRegistrationTime 注册时间  userBirthday 生日
+     *        userAge 年龄
+     *
+     * @param map
+     * @param request
+     * @return
+     */
+    @RequestMapping(path = "update_user_info", method = RequestMethod.POST)
+    public JsonBuilder updateUserInfo(@RequestBody Map<String, String> map,
+                                      HttpServletRequest request){
+        int userId = (int)request.getAttribute("user_id");
+        if(!map.containsKey("userEmail")
+                ||!map.containsKey("userProfilePhoto")
+                ||!map.containsKey("userRegistrationTime")
+                ||!map.containsKey("userBirthday")
+                ||!map.containsKey("userAge")) {
+            return JsonBuilder.buildError("填写的信息有误，请稍后重试。");
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            simpleDateFormat.parse(map.get("userRegistrationTime"));
+            Date userBirthday = simpleDateFormat.parse(map.get("userBirthday"));
+            java.sql.Date date = new java.sql.Date(userBirthday.getTime());
+
+            LhwUser lhwUser = new LhwUser();
+            lhwUser.setUserId(userId);
+            lhwUser.setUserEmail(map.get("userEmail"));
+            lhwUser.setUserProfilePhoto(map.get("userProfilePhoto"));
+            lhwUser.setUserRegistrationTime(simpleDateFormat.parse(map.get("userRegistrationTime")));
+            lhwUser.setUserBirthday(date);
+            lhwUser.setUserAge(Integer.valueOf(map.get("userAge")));
+
+            int i = userService.updateUserInfo(lhwUser);
+            if(i == 1) {
+                return JsonBuilder.buildSuccess("更新成功。");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return JsonBuilder.buildError("更新失败。");
+    }
+
+    /**
+     * oldPwd 原密码 newPwd 新密码
+     * @param map
+     * @param request
+     * @return
+     */
+    @RequestMapping(path = "update_pwd", method = RequestMethod.POST)
+    public JsonBuilder updatePassword(@RequestBody Map<String, String> map,
+                                      HttpServletRequest request) {
+        String userId = request.getAttribute("user_id").toString();
+        if(!map.containsKey("oldPwd") || !map.containsKey("newPwd")){
+            return JsonBuilder.buildError("输入的密码有误，请重新输入。");
+        }
+
+        String oldPwd = map.get("oldPwd"),
+                newPwd = map.get("newPwd");
+        LhwUser lhwUser = userService.queryUserById(userId);
+        String generateOldPwd = SecretUtils.generatePwd(oldPwd);
+        if(!lhwUser.getUserPassword().equals(generateOldPwd)) {
+            return JsonBuilder.buildError("输入的愿密码错误。");
+        }
+
+        String genrateNewPwd = SecretUtils.generatePwd(newPwd);
+        if(generateOldPwd == null) {
+            return JsonBuilder.buildError("生成新密码失败，请稍后重试。");
+        }
+
+        int i = userService.updatePassword(genrateNewPwd, userId);
+        if(i == 1) {
+            return JsonBuilder.buildSuccess("密码修改成功。");
+        }
+
+        return JsonBuilder.buildError("密码修改失败。");
+    }
+
+    @RequestMapping(path = "test", method = RequestMethod.POST)
+    public JsonBuilder test(@RequestBody Object phone){
         List<LhwUser> userList = userService.queryAllUser();
         return JsonBuilder.buildSuccess(userList);
     }

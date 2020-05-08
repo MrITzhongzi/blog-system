@@ -82,7 +82,8 @@ public class QiniuUtils {
     public String getPrivateImagePath(String filename){
         //"1.png"
         String fileName = filename;
-        String domainOfBucket = "http://q8eezq1qm.bkt.clouddn.com";
+//        String domainOfBucket = "http://q8eezq1qm.bkt.clouddn.com";
+        String domainOfBucket = "http://qiniu.itzhongzi.com";
         String encodedFileName = null;
         try {
             encodedFileName = URLEncoder.encode(fileName, "utf-8").replace("+", "%20");

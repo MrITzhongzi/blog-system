@@ -32,9 +32,11 @@ public class ArticleController {
      * @return
      */
     @RequestMapping(path = "/publish", method = RequestMethod.POST)
-    public JsonBuilder publishAticle(@RequestParam(value = "title") String title,
-                                     @RequestParam(value = "content") String content,
+    public JsonBuilder publishAticle(@RequestBody Map<String, String> map,
                                      HttpServletRequest request){
+        String title = map.get("title");
+        String content = map.get("content");
+
         //查询用户的相关信息
         Integer userId = (Integer)request.getAttribute("user_id");
         LhwArticles article = new LhwArticles();
@@ -84,5 +86,14 @@ public class ArticleController {
         List<LhwArticles> userListArticle = articleService.getUserArticle(userId);
         Map<String, Object> map = pageUtils.dealPageInfo(userListArticle, page);
         return JsonBuilder.buildSuccess(map);
+    }
+
+    @GetMapping(path="/get_article_by_id")
+    public JsonBuilder getArticleService(@RequestParam(value = "article_id") Integer id) {
+        LhwArticles article = articleService.getArticleById(id);
+        if(article == null) {
+            return JsonBuilder.buildError("没有找到该文章.");
+        }
+        return JsonBuilder.buildSuccess(article);
     }
 }

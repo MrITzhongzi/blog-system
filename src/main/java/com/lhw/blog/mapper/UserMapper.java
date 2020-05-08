@@ -30,7 +30,37 @@ public interface UserMapper {
     List<LhwUser> queryAllUser();
 
 
+    /**
+     * 根据手机号查找用户
+     * @param phone
+     * @return
+     */
     @Select("SELECT * FROM lhw_user WHERE user_telephone_number = #{phone}")
     LhwUser queryUserByPhone(String phone);
+
+    /**
+     * 根据 用户id 查找用户
+     * @param userId
+     * @return
+     */
+    @Select("SELECT * FROM lhw_user WHERE user_id = #{userId}")
+    LhwUser queryUserById(String userId);
+
+    /**
+     * 更新用户信息
+     * @param lhwUser
+     * @return
+     */
+    @Update("UPDATE lhw_user set user_email = #{userEmail} ,user_profile_photo = #{userProfilePhoto}, user_registration_time = #{userRegistrationTime},user_birthday = #{userBirthday}, user_age = #{userAge} WHERE user_id = #{userId}")
+    int updateUserInfo(LhwUser lhwUser);
+
+    /**
+     * 修改密码
+     * @param newPwd
+     * @param userId
+     * @return
+     */
+    @Update("UPDATE lhw_user set user_password = #{newPwd} WHERE user_id = #{userId}")
+    int updatePassword(String newPwd, String userId);
 
 }

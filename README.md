@@ -1,5 +1,7 @@
 ## blog system
 
+csdn blog:  https://blog.csdn.net/itzhongzi/category_9881181.html
+
 ### 用户模块
 
 ```
@@ -172,6 +174,31 @@
         "current_page": 1
     }
 }
+
+```
+
+- 查询文章详情
+  - api: /api/article/get_article_by_id     get
+  - 参数：article_id
+  - 查询某一篇文章详情,返回的数据格式如下
+  - 返回结果如下：
+  
+ ```json
+{
+    "code": 0,
+    "description": "success",
+    "data": {
+        "articleId": 2,
+        "userId": 56,
+        "articleTitle": "ddd",
+        "articleContent": "erere",
+        "articleViews": 100,
+        "articleCommentCount": 0,
+        "articleDate": null,
+        "articleLikeCount": 0
+    }
+}
+
 ```
 
 

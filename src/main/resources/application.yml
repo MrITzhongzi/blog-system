@@ -1,5 +1,7 @@
 server:
   port: 8088
+  # 修改服务器允许请求的header大小
+  max-http-header-size: 8KB
 
 
 # 数据库配置

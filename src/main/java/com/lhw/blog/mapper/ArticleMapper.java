@@ -23,4 +23,7 @@ public interface ArticleMapper {
 
     @Select("SELECT * FROM lhw_articles WHERE user_id = #{userId}")
     List<LhwArticles> getUserArticle(int userId);
+
+    @Select("SELECT * FROM lhw_articles WHERE article_id = #{articleId}")
+    LhwArticles getArticleById(int articleId);
 }

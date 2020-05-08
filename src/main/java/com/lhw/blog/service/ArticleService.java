@@ -16,4 +16,6 @@ public interface ArticleService {
     List<LhwArticles> getAllArticle();
 
     List<LhwArticles> getUserArticle(int userId);
+
+    LhwArticles getArticleById(int articleId);
 }

@@ -33,4 +33,9 @@ public class ArticleServiceImpl implements ArticleService {
     public List<LhwArticles> getUserArticle(int userId) {
         return articleMapper.getUserArticle(userId);
     }
+
+    @Override
+    public LhwArticles getArticleById(int articleId) {
+        return articleMapper.getArticleById(articleId);
+    }
 }

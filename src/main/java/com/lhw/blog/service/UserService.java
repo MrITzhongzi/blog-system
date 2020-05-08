@@ -17,4 +17,10 @@ public interface UserService {
     List<LhwUser> queryAllUser();
 
     LhwUser queryUserByPhone(String phone);
+
+    LhwUser queryUserById(String userId);
+
+    int updateUserInfo(LhwUser lhwUser);
+
+    int updatePassword(String newPwd, String userId);
 }

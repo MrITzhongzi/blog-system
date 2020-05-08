@@ -40,4 +40,19 @@ public class UserServiceImpl implements UserService {
 
         return userMapper.queryUserByPhone(phone);
     }
+
+    @Override
+    public LhwUser queryUserById(String userId) {
+        return userMapper.queryUserById(userId);
+    }
+
+    @Override
+    public int updateUserInfo(LhwUser lhwUser) {
+        return userMapper.updateUserInfo(lhwUser);
+    }
+
+    @Override
+    public int updatePassword(String newPwd, String userId) {
+        return userMapper.updatePassword(newPwd, userId);
+    }
 }

@@ -1,5 +1,6 @@
 package com.lhw.blog.service;
 
+import com.lhw.blog.domain.LhwArticles;
 import com.lhw.blog.domain.LhwUser;
 import org.springframework.stereotype.Service;
 
@@ -23,4 +24,8 @@ public interface UserService {
     int updateUserInfo(LhwUser lhwUser);
 
     int updatePassword(String newPwd, String userId);
+
+    int updateHeadImg(int userId, String headImg);
+
+    List<LhwArticles> checkUserArticle(int userId);
 }

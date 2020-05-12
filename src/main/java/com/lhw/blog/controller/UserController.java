@@ -1,6 +1,7 @@
 package com.lhw.blog.controller;
 
 import com.lhw.blog.config.CommonParam;
+import com.lhw.blog.domain.LhwArticles;
 import com.lhw.blog.domain.LhwUser;
 import com.lhw.blog.service.UserService;
 import com.lhw.blog.tool.IpUtil;
@@ -8,6 +9,7 @@ import com.lhw.blog.tool.JWTUtils;
 import com.lhw.blog.tool.JsonBuilder;
 import com.lhw.blog.tool.SecretUtils;
 import org.springframework.web.bind.annotation.*;
+import sun.misc.Request;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -207,6 +209,42 @@ public class UserController {
 
         return JsonBuilder.buildError("密码修改失败。");
     }
+
+
+    /**
+     * 更改头像 headImg 头像地址
+     * @param map
+     * @return
+     */
+    @RequestMapping(path = "update_head_img", method = RequestMethod.POST)
+    public JsonBuilder updateUserHeaderPhoto(@RequestBody Map<String, String> map,
+                                             HttpServletRequest request){
+        System.out.println(map);
+        String headImg = map.get("headImg");
+        int userId = (int)request.getAttribute("user_id");
+        if(headImg.isEmpty()) {
+            return JsonBuilder.buildError("头像地址不能为空。");
+        }
+        int i = userService.updateHeadImg(userId, headImg);
+        if(i == 1) {
+            return JsonBuilder.buildSuccess("更新成功");
+        }
+        return JsonBuilder.buildError("更新失败");
+    }
+
+
+    /**
+     * 查询用户文章
+     * @param request
+     * @return
+     */
+    @RequestMapping(path = "user_article_list", method = RequestMethod.GET)
+    public JsonBuilder checkUserArticleList(HttpServletRequest request){
+        int userId = (int)request.getAttribute("user_id");
+        List<LhwArticles> lhwArticles = userService.checkUserArticle(userId);
+        return JsonBuilder.buildSuccess(lhwArticles);
+    }
+
 
     @RequestMapping(path = "test", method = RequestMethod.POST)
     public JsonBuilder test(@RequestBody Object phone){

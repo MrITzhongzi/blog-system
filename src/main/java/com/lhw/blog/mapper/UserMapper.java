@@ -1,5 +1,6 @@
 package com.lhw.blog.mapper;
 
+import com.lhw.blog.domain.LhwArticles;
 import com.lhw.blog.domain.LhwUser;
 import org.apache.ibatis.annotations.*;
 
@@ -62,5 +63,17 @@ public interface UserMapper {
      */
     @Update("UPDATE lhw_user set user_password = #{newPwd} WHERE user_id = #{userId}")
     int updatePassword(String newPwd, String userId);
+
+    /**
+     * 更改用户头像
+     * @param userId
+     * @param headImg
+     * @return
+     */
+    @Update("UPDATE lhw_user SET user_profile_photo = #{headImg} WHERE user_id = #{userId}")
+    int updateHeadImg(int userId, String headImg);
+
+    @Select("SELECT * FROM lhw_articles WHERE user_id = #{userId}")
+    List<LhwArticles> checkUserArticle(int userId);
 
 }

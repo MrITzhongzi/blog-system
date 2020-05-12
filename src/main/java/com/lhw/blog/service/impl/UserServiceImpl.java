@@ -1,5 +1,6 @@
 package com.lhw.blog.service.impl;
 
+import com.lhw.blog.domain.LhwArticles;
 import com.lhw.blog.domain.LhwUser;
 import com.lhw.blog.mapper.UserMapper;
 import com.lhw.blog.service.UserService;
@@ -54,5 +55,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public int updatePassword(String newPwd, String userId) {
         return userMapper.updatePassword(newPwd, userId);
+    }
+
+    @Override
+    public int updateHeadImg(int userId, String headImg) {
+        return userMapper.updateHeadImg(userId, headImg);
+    }
+
+    @Override
+    public List<LhwArticles> checkUserArticle(int userId) {
+        return userMapper.checkUserArticle(userId);
     }
 }

@@ -201,6 +201,82 @@ csdn blog:  https://blog.csdn.net/itzhongzi/category_9881181.html
 
 ```
 
+- 获取用户信息
+
+    - api: /api/user/get_user_info   get
+    - 参数： 无
+    - 查询用户基本信息
+    - 返回json格式如下
+```json
+{
+    "code": 0,
+    "description": "success",
+    "data": {
+        "userId": 56,
+        "userIp": "0:0:0:0:0:0:0:1",
+        "userName": "lihongwei",
+        "userPassword": "-4n35o4d1iiqf5jda8086l7v7dt82fu7n",
+        "userEmail": "178@163.com",
+        "userProfilePhoto": "ss",
+        "userRegistrationTime": 1601481600000,
+        "userBirthday": 1601442000000,
+        "userAge": 20,
+        "userTelephoneNumber": "17862806857",
+        "userNickname": "以勒"
+    }
+}
+
+```
+
+- 更新用户信息
+    - api: /api/user/update_user_info   post
+    - 参数： userEmail 邮箱 userProfilePhoto 头像
+            userRegistrationTime 注册时间  userBirthday 生日
+            userAge 年龄
+    - 更新用户基本信息
+    - 返回json格式如下
+```json
+{
+    "code": 0,
+    "description": "更新成功。",
+    "data": null
+}
+```
+
+- 修改登录密码
+    - api: /api/user/update_pwd   post
+    - 参数： oldPwd 原密码 newPwd 新密码
+    - 修改密码
+    - 返回json格式如下
+```json
+{
+    "code": 0,
+    "description": "密码修改成功。",
+    "data": null
+}
+```
+
+- 修改头像
+    - api: /api/user/update_head_img   post
+    - 参数： headImg 头像地址
+    - 修改头像
+    - 返回json格式如下
+```json
+{
+    "code": 0,
+    "description": "修改成功。",
+    "data": null
+}
+```
+- 查询文章列表
+    - api: /api/user/user_article_list   get
+    - 参数： 无
+    - 查询文章列表
+    - 返回json格式如下
+```json
+
+```
+
 
 
 

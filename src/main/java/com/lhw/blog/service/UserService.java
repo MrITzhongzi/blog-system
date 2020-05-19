@@ -19,11 +19,11 @@ public interface UserService {
 
     LhwUser queryUserByPhone(String phone);
 
-    LhwUser queryUserById(String userId);
+    LhwUser queryUserById(int userId);
 
     int updateUserInfo(LhwUser lhwUser);
 
-    int updatePassword(String newPwd, String userId);
+    int updatePassword(String newPwd, int userId);
 
     int updateHeadImg(int userId, String headImg);
 

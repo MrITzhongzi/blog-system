@@ -20,6 +20,7 @@ public class SecretUtils {
         try {
             MessageDigest sha = MessageDigest.getInstance("SHA");
             // 生成32位字符串秘文
+            sha.update(oldPwd.getBytes());
             return new BigInteger(sha.digest()).toString(32);
         } catch (Exception e) {
 

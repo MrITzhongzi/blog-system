@@ -45,7 +45,7 @@ public interface UserMapper {
      * @return
      */
     @Select("SELECT * FROM lhw_user WHERE user_id = #{userId}")
-    LhwUser queryUserById(String userId);
+    LhwUser queryUserById(int userId);
 
     /**
      * 更新用户信息
@@ -62,7 +62,7 @@ public interface UserMapper {
      * @return
      */
     @Update("UPDATE lhw_user set user_password = #{newPwd} WHERE user_id = #{userId}")
-    int updatePassword(String newPwd, String userId);
+    int updatePassword(String newPwd, int userId);
 
     /**
      * 更改用户头像

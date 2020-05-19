@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public LhwUser queryUserById(String userId) {
+    public LhwUser queryUserById(int userId) {
         return userMapper.queryUserById(userId);
     }
 
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updatePassword(String newPwd, String userId) {
+    public int updatePassword(String newPwd, int userId) {
         return userMapper.updatePassword(newPwd, userId);
     }
 

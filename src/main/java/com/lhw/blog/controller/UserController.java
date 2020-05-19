@@ -121,7 +121,7 @@ public class UserController {
 
     @RequestMapping(path = "get_user_info", method = RequestMethod.GET)
     public JsonBuilder getUserInfo(HttpServletRequest request){
-        String userId = request.getAttribute("user_id").toString();
+        int userId = (int)request.getAttribute("user_id");
         LhwUser lhwUser = userService.queryUserById(userId);
         if(lhwUser != null) {
             return JsonBuilder.buildSuccess(lhwUser);
@@ -184,7 +184,7 @@ public class UserController {
     @RequestMapping(path = "update_pwd", method = RequestMethod.POST)
     public JsonBuilder updatePassword(@RequestBody Map<String, String> map,
                                       HttpServletRequest request) {
-        String userId = request.getAttribute("user_id").toString();
+        int userId = (int)request.getAttribute("user_id");
         if(!map.containsKey("oldPwd") || !map.containsKey("newPwd")){
             return JsonBuilder.buildError("输入的密码有误，请重新输入。");
         }

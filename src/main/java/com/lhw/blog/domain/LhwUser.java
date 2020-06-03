@@ -1,11 +1,15 @@
 package com.lhw.blog.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class LhwUser {
 
+  @JsonIgnore
   private Integer userId;
   private String userIp;
   private String userName;
+  @JsonIgnore
   private String userPassword;
   private String userEmail;
   private String userProfilePhoto;

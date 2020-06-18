@@ -96,4 +96,5 @@ public class ArticleController {
         }
         return JsonBuilder.buildSuccess(article);
     }
+
 }

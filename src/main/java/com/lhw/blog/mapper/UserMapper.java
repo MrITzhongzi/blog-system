@@ -2,6 +2,7 @@ package com.lhw.blog.mapper;
 
 import com.lhw.blog.domain.LhwArticles;
 import com.lhw.blog.domain.LhwUser;
+import com.lhw.blog.domain.LhwUserFirends;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -75,5 +76,20 @@ public interface UserMapper {
 
     @Select("SELECT * FROM lhw_articles WHERE user_id = #{userId}")
     List<LhwArticles> checkUserArticle(int userId);
+
+    @Select("SELECT * FROM lhw_user_firends WHERE user_id = #{myUserId} and user_friends_id = #{otherUserId}")
+    LhwUserFirends isAttention(int myUserId, int otherUserId);
+
+    /**
+     * 关注某作者
+     * @param myUserId
+     * @param otherUserId
+     * @return
+     */
+    @Insert("INSERT INTO lhw_user_firends (user_id, user_friends_id) VALUES (#{myUserId}, #{otherUserId})")
+    int addAttention(int myUserId, int otherUserId);
+
+    @Update("UPDATE lhw_user_firends SET user_note = #{commentName} WHERE user_id = #{myUserId} and user_friends_id = #{otherUserId}")
+    int updateUserComment(int myUserId, int otherUserId, String commentName);
 
 }

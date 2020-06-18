@@ -2,6 +2,7 @@ package com.lhw.blog.service.impl;
 
 import com.lhw.blog.domain.LhwArticles;
 import com.lhw.blog.domain.LhwUser;
+import com.lhw.blog.domain.LhwUserFirends;
 import com.lhw.blog.mapper.UserMapper;
 import com.lhw.blog.service.UserService;
 import org.springframework.stereotype.Service;
@@ -65,5 +66,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<LhwArticles> checkUserArticle(int userId) {
         return userMapper.checkUserArticle(userId);
+    }
+
+    @Override
+    public LhwUserFirends isAttention(int myUserId, int otherUserId) {
+        return userMapper.isAttention(myUserId, otherUserId);
+    }
+
+    @Override
+    public int addAttention(int myUserId, int otherUserId) {
+        return userMapper.addAttention(myUserId, otherUserId);
+    }
+
+    @Override
+    public int updateUserComment(int myUserId, int otherUserId, String commentName) {
+        return userMapper.updateUserComment(myUserId, otherUserId, commentName);
     }
 }

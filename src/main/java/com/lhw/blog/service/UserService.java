@@ -2,6 +2,7 @@ package com.lhw.blog.service;
 
 import com.lhw.blog.domain.LhwArticles;
 import com.lhw.blog.domain.LhwUser;
+import com.lhw.blog.domain.LhwUserFirends;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,4 +29,10 @@ public interface UserService {
     int updateHeadImg(int userId, String headImg);
 
     List<LhwArticles> checkUserArticle(int userId);
+
+    LhwUserFirends isAttention(int myUserId, int otherUserId);
+
+    int addAttention(int myUserId, int otherUserId);
+
+    int updateUserComment(int myUserId, int otherUserId, String commentName);
 }

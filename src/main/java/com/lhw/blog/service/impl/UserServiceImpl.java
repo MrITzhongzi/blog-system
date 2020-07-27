@@ -82,4 +82,9 @@ public class UserServiceImpl implements UserService {
     public int updateUserComment(int myUserId, int otherUserId, String commentName) {
         return userMapper.updateUserComment(myUserId, otherUserId, commentName);
     }
+
+    @Override
+    public List<LhwUser> attentionUserList(int userId) {
+        return userMapper.attentionUserList(userId);
+    }
 }

@@ -35,4 +35,6 @@ public interface UserService {
     int addAttention(int myUserId, int otherUserId);
 
     int updateUserComment(int myUserId, int otherUserId, String commentName);
+
+    List<LhwUser> attentionUserList(int userId);
 }

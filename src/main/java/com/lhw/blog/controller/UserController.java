@@ -109,10 +109,11 @@ public class UserController {
         String generatePwd = SecretUtils.generatePwd(password);
         if (phone.equals(user.getUserTelephoneNumber()) && generatePwd.equals(user.getUserPassword())) {
             String token = JWTUtils.generateToken(user);
-            Map<String, String> map = new HashMap<>();
+            Map<String, Object> map = new HashMap<>();
             map.put("username", user.getUserName());
             map.put("nickname", user.getUserNickname());
             map.put("phone", user.getUserTelephoneNumber());
+            map.put("userId", user.getUserId());
             map.put("token", token);
             return JsonBuilder.buildSuccess(map);
         }
@@ -283,6 +284,13 @@ public class UserController {
             return JsonBuilder.buildSuccess(0);
         }
         return JsonBuilder.buildError(-1, "关注失败，请稍后重试……");
+    }
+
+    @GetMapping(path = "attention_user_list")
+    public JsonBuilder attentionUserList(HttpServletRequest request){
+        int userId = (int) request.getAttribute("user_id");
+        List<LhwUser> lhwUsersList = userService.attentionUserList(userId);
+        return JsonBuilder.buildSuccess(0, lhwUsersList);
     }
 
     /**

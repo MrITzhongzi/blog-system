@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class LhwUser {
 
-  @JsonIgnore
   private Integer userId;
   private String userIp;
   private String userName;
@@ -18,6 +17,15 @@ public class LhwUser {
   private Integer userAge;
   private String userTelephoneNumber;
   private String userNickname;
+  private String userSignature;
+
+  public String getUserSignature() {
+    return userSignature;
+  }
+
+  public void setUserSignature(String userSignature) {
+    this.userSignature = userSignature;
+  }
 
 
   public Integer getUserId() {

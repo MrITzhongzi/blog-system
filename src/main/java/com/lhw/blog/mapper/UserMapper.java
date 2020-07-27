@@ -92,4 +92,7 @@ public interface UserMapper {
     @Update("UPDATE lhw_user_firends SET user_note = #{commentName} WHERE user_id = #{myUserId} and user_friends_id = #{otherUserId}")
     int updateUserComment(int myUserId, int otherUserId, String commentName);
 
+    @Select("SELECT * FROM lhw_user WHERE user_id = #{userId}")
+    List<LhwUser> attentionUserList(int userId);
+
 }
